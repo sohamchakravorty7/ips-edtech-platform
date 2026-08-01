@@ -1,6 +1,7 @@
 import Link from "next/link"
 import {
   APP_NAME,
+  APP_DESCRIPTION,
   COMPANY_INFO,
   SOCIAL_LINKS,
 } from "@/lib/constants"
@@ -10,40 +11,51 @@ import {
   PhoneIcon,
   MapPinIcon,
   ArrowUpRightIcon,
+  GlobeIcon,
 } from "lucide-react"
 
 const socialLinks = [
-  { label: "Twitter", href: SOCIAL_LINKS.twitter },
-  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin },
-  { label: "GitHub", href: SOCIAL_LINKS.github },
+  {
+    label: "Facebook",
+    href: SOCIAL_LINKS.facebook,
+  },
+  {
+    label: "Instagram",
+    href: SOCIAL_LINKS.instagram,
+  },
+  {
+    label: "YouTube",
+    href: SOCIAL_LINKS.youtube,
+  },
 ]
 
 const footerLinks = [
   {
-    title: "Platform",
+    title: "Institute",
     links: [
       { label: "Home", href: "/" },
-      { label: "About", href: "/#about" },
+      { label: "About Us", href: "/#about" },
       { label: "Courses", href: "/#courses" },
+      { label: "Gallery", href: "/#gallery" },
       { label: "Contact", href: "/#contact" },
     ],
   },
   {
     title: "Programs",
     links: [
-      { label: "Full-Stack Development", href: "/#courses" },
-      { label: "Data Science & AI", href: "/#courses" },
-      { label: "Product Design", href: "/#courses" },
-      { label: "Cloud Architecture", href: "/#courses" },
+      { label: "Computer Courses", href: "/#courses" },
+      { label: "Professional Training", href: "/#courses" },
+      { label: "School Coaching", href: "/#courses" },
+      { label: "Career Guidance", href: "/#contact" },
     ],
   },
   {
-    title: "Company",
+    title: "Support",
     links: [
-      { label: "Success Stories", href: "/#testimonials" },
-      { label: "Why iPS", href: "/#why-choose-us" },
-      { label: "Platform Highlights", href: "/#gallery" },
-      { label: "Careers", href: "/#contact" },
+      { label: "Admissions", href: "/#contact" },
+      { label: "FAQs", href: "/#contact" },
+      { label: "Privacy Policy", href: "/#contact" },
+      { label: "Refund Policy", href: "/#contact" },
     ],
   },
 ]
@@ -52,127 +64,119 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-[#0d2f6e] via-[#0f3d91] to-[#08224f]">
-      {/* Decorative elements */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-32 -left-32 h-[400px] w-[400px] rounded-full bg-indigo-brand/30 blur-[120px]" />
-        <div className="absolute -right-32 -bottom-32 h-[400px] w-[400px] rounded-full bg-gold/10 blur-[120px]" />
-        <div className="absolute inset-0 opacity-[0.04] [background:linear-gradient(to_right,rgb(255_255_255/0.5)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.5)_1px,transparent_1px)] [background-size:2.5rem_2.5rem]" />
+    <footer className="relative overflow-hidden bg-gradient-to-br from-[#0A2E73] via-[#0F3D91] to-[#061B45] text-white">
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute -left-40 top-0 h-96 w-96 rounded-full bg-yellow-400 blur-3xl" />
+        <div className="absolute -right-40 bottom-0 h-96 w-96 rounded-full bg-indigo-500 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="relative mx-auto max-w-7xl px-6 py-20">
+        <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           {/* Brand */}
-          <div className="space-y-5">
+          <div>
             <Link
               href="/"
-              className="flex items-center gap-2.5"
-              aria-label={`${APP_NAME} home`}
+              className="mb-6 inline-flex items-center gap-3"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#ffce4f] to-gold text-royal-deep shadow-[0_4px_16px_-2px_rgb(244_180_0/0.5)]">
-                <GraduationCapIcon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <span className="text-lg font-extrabold tracking-tight text-white">
-                {APP_NAME}
-              </span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-500 shadow-xl">
+                <GraduationCapIcon className="h-6 w-6 text-[#0F3D91]" />
+              </div>
+
+              <div>
+                <h2 className="text-xl font-bold">{APP_NAME}</h2>
+                <p className="text-sm text-yellow-300">
+                  {COMPANY_INFO.tagline}
+                </p>
+              </div>
             </Link>
-            <p className="max-w-sm text-sm leading-relaxed text-white/60">
-              {"India\u2019s premier career-focused learning platform. We engineer careers through world-class education, industry mentorship, and outcomes you can measure."}
+
+            <p className="max-w-md leading-7 text-white/70">
+              {APP_DESCRIPTION}
             </p>
 
-            {/* Contact */}
-            <div className="space-y-3 pt-2">
+            <div className="mt-8 space-y-3 text-sm">
               <a
                 href={`mailto:${COMPANY_INFO.email}`}
-                className="flex items-center gap-2.5 text-sm text-white/60 transition-colors hover:text-[#ffd25e]"
+                className="flex items-center gap-3 text-white/70 transition hover:text-yellow-300"
               >
-                <MailIcon className="h-4 w-4 text-[#ffd25e]" aria-hidden="true" />
+                <MailIcon className="h-4 w-4" />
                 {COMPANY_INFO.email}
               </a>
+
               <a
-                href="tel:+919999999999"
-                className="flex items-center gap-2.5 text-sm text-white/60 transition-colors hover:text-[#ffd25e]"
+                href={`tel:${COMPANY_INFO.phone.replace(/\s/g, "")}`}
+                className="flex items-center gap-3 text-white/70 transition hover:text-yellow-300"
               >
-                <PhoneIcon className="h-4 w-4 text-[#ffd25e]" aria-hidden="true" />
-                +91 99999 99999
+                <PhoneIcon className="h-4 w-4" />
+                {COMPANY_INFO.phone}
               </a>
-              <p className="flex items-center gap-2.5 text-sm text-white/60">
-                <MapPinIcon className="h-4 w-4 shrink-0 text-[#ffd25e]" aria-hidden="true" />
-                Koramangala, Bengaluru, India
-              </p>
+
+              <div className="flex items-center gap-3 text-white/70">
+                <MapPinIcon className="h-4 w-4" />
+                {COMPANY_INFO.address}
+              </div>
             </div>
 
-            {/* Social */}
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="mt-8 flex gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold text-white/70 backdrop-blur-sm transition-all duration-300 hover:border-gold/40 hover:bg-gold hover:text-royal-deep"
+                  className="flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 text-sm font-semibold text-white/80 backdrop-blur transition hover:border-yellow-400 hover:bg-yellow-400 hover:text-[#0F3D91]"
                 >
+                  <GlobeIcon className="mr-2 h-4 w-4" />
                   {social.label}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Link columns */}
-          {footerLinks.map((column) => (
-            <nav
-              key={column.title}
-              aria-label={`${column.title} navigation`}
-              className="space-y-4"
-            >
-              <h3 className="text-xs font-bold tracking-widest text-[#ffd25e] uppercase">
-                {column.title}
+          {footerLinks.map((section) => (
+            <div key={section.title}>
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-yellow-300">
+                {section.title}
               </h3>
-              <ul className="space-y-2.5">
-                {column.links.map((link) => (
+
+              <ul className="space-y-4">
+                {section.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="group inline-flex items-center gap-1 text-sm text-white/60 transition-colors hover:text-white"
+                      className="group inline-flex items-center gap-2 text-white/70 transition hover:text-white"
                     >
                       {link.label}
-                      <ArrowUpRightIcon
-                        className="h-3 w-3 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100"
-                        aria-hidden="true"
-                      />
+
+                      <ArrowUpRightIcon className="h-3 w-3 opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
                     </Link>
                   </li>
                 ))}
               </ul>
-            </nav>
+            </div>
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
-          <p className="text-xs text-white/50">
-            &copy; {currentYear} {APP_NAME}. All rights reserved.
-          </p>
-          <nav aria-label="Legal navigation" className="flex gap-6">
-            <Link
-              href="/#contact"
-              className="text-xs text-white/50 transition-colors hover:text-white"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/#contact"
-              className="text-xs text-white/50 transition-colors hover:text-white"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/#contact"
-              className="text-xs text-white/50 transition-colors hover:text-white"
-            >
-              Refund Policy
-            </Link>
-          </nav>
+        <div className="mt-16 border-t border-white/10 pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-sm text-white/50">
+              © {currentYear} {APP_NAME}. All Rights Reserved.
+            </p>
+
+            <div className="flex gap-6 text-sm text-white/50">
+              <Link href="/#contact" className="hover:text-white">
+                Privacy Policy
+              </Link>
+
+              <Link href="/#contact" className="hover:text-white">
+                Terms & Conditions
+              </Link>
+
+              <Link href="/#contact" className="hover:text-white">
+                Refund Policy
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

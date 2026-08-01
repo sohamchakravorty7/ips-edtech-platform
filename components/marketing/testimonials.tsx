@@ -1,7 +1,15 @@
 import { SectionWrapper, SectionHeader } from "@/components/shared/section-wrapper"
+import { StaggerContainer, StaggerItem } from "@/components/shared/motion-wrapper"
 import { QuoteIcon } from "lucide-react"
 
-const testimonials = [
+interface Testimonial {
+  name: string
+  role: string
+  content: string
+  avatar: string
+}
+
+const testimonials: Testimonial[] = [
   {
     name: "Sarah Johnson",
     role: "Software Engineer",
@@ -32,31 +40,35 @@ export function Testimonials() {
         title="What Our Students Say"
         description="Hear from our community of learners who have transformed their careers with iPS."
       />
-      <div className="grid gap-6 md:grid-cols-3">
+      <StaggerContainer className="grid gap-6 md:grid-cols-3">
         {testimonials.map((testimonial) => (
-          <div
-            key={testimonial.name}
-            className="relative rounded-lg border bg-background p-6"
-          >
-            <QuoteIcon
-              className="absolute right-4 top-4 h-8 w-8 text-muted-foreground/20"
-              aria-hidden="true"
-            />
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              &ldquo;{testimonial.content}&rdquo;
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-                {testimonial.avatar}
-              </div>
-              <div>
-                <p className="text-sm font-semibold">{testimonial.name}</p>
-                <p className="text-xs text-muted-foreground">{testimonial.role}</p>
-              </div>
-            </div>
-          </div>
+          <StaggerItem key={testimonial.name} className="h-full">
+            <figure className="relative flex h-full flex-col rounded-xl border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <QuoteIcon
+                className="absolute right-5 top-5 h-8 w-8 text-muted-foreground/10"
+                aria-hidden="true"
+              />
+              <blockquote className="flex-1">
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  &ldquo;{testimonial.content}&rdquo;
+                </p>
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3 border-t pt-4">
+                <div
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary"
+                  aria-hidden="true"
+                >
+                  {testimonial.avatar}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">{testimonial.name}</p>
+                  <p className="text-xs text-muted-foreground">{testimonial.role}</p>
+                </div>
+              </figcaption>
+            </figure>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </SectionWrapper>
   )
 }

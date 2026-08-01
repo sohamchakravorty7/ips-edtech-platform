@@ -1,7 +1,14 @@
 import { SectionWrapper, SectionHeader } from "@/components/shared/section-wrapper"
-import { SparklesIcon, ZapIcon, HeadphonesIcon, GraduationCapIcon } from "lucide-react"
+import { StaggerContainer, StaggerItem } from "@/components/shared/motion-wrapper"
+import { SparklesIcon, ZapIcon, HeadphonesIcon, GraduationCapIcon, type LucideIcon } from "lucide-react"
 
-const reasons = [
+interface Reason {
+  title: string
+  description: string
+  icon: LucideIcon
+}
+
+const reasons: Reason[] = [
   {
     title: "Expert Instructors",
     description:
@@ -35,22 +42,23 @@ export function WhyChooseUs() {
         title="Why Choose iPS?"
         description="We're committed to providing the best learning experience possible. Here's what sets us apart."
       />
-      <div className="grid gap-6 sm:grid-cols-2">
+      <StaggerContainer className="grid gap-6 sm:grid-cols-2">
         {reasons.map((reason) => (
-          <div
-            key={reason.title}
-            className="flex items-start gap-4 rounded-lg border p-6"
-          >
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-              <reason.icon className="h-6 w-6 text-primary" aria-hidden="true" />
+          <StaggerItem key={reason.title}>
+            <div className="group flex items-start gap-4 rounded-xl border bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                <reason.icon className="h-6 w-6" aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">{reason.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  {reason.description}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold">{reason.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{reason.description}</p>
-            </div>
-          </div>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </SectionWrapper>
   )
 }

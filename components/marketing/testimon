@@ -6,10 +6,10 @@ import {
   TrendingUpIcon,
   BriefcaseIcon,
   MapPinIcon,
-  ArrowRightIcon,
 } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { ArrowRightIcon } from "lucide-react"
 
 interface Testimonial {
   name: string
@@ -29,7 +29,7 @@ const testimonials: Testimonial[] = [
     location: "Bengaluru",
     program: "Full-Stack Web Development",
     content:
-      "I went from a non-tech background to an 18 LPA offer at a top product company in 7 months. The mentors didn't just teach code — they taught me how to think like an engineer and present myself with confidence.",
+      "I went from a non-tech background to a 18 LPA offer at a top product company in 7 months. The mentors didn't just teach code — they taught me how to think like an engineer and present myself with confidence.",
     avatar: "PS",
     gradient: "from-[#0f3d91] to-[#4338ca]",
     placedAt: "Placed at Google India",

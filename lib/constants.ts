@@ -1,23 +1,29 @@
 export const APP_NAME = "iPS EdTech"
-export const APP_DESCRIPTION = "A next-generation educational technology platform for students, educators, and administrators."
-export const APP_TAGLINE = "Empowering the next generation of learners"
+export const APP_DESCRIPTION =
+  "India's premier career-focused learning platform. Master in-demand skills with industry mentors, real projects, and guaranteed career outcomes."
+export const APP_TAGLINE = "Engineering Careers That Command Attention"
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/#about" },
-  { label: "Courses", href: "/#courses" },
-  { label: "Contact", href: "/#contact" },
+  { label: "About", href: "#about" },
+  { label: "Courses", href: "#courses" },
+  { label: "Contact", href: "#contact" },
 ] as const
 
 export const SOCIAL_LINKS = {
-  twitter: "https://twitter.com/ipsedtech",
-  linkedin: "https://linkedin.com/company/ipsedtech",
-  github: "https://github.com/sohamchakravorty7/ips-edtech-platform",
+  facebook: "#",
+  instagram: "#",
+  linkedin: "#",
+  youtube: "#",
 } as const
 
 export const COMPANY_INFO = {
-  name: "iPS EdTech",
-  email: "hello@ipsedtech.com",
-  phone: "+1 (555) 123-4567",
-  address: "123 Education Lane, Learning City, ED 10001",
+  name: "Institute of Professional Studies",
+  shortName: "iPS",
+  tagline: "25 Years of Excellence in Professional Education",
+  email: "admissions@ipseduworld.com",
+  phone: "+91 98765 43210",
+  whatsapp: "+91 98765 43210",
+  website: "https://www.ipseduworld.com",
+  address: "Kanchrapara, West Bengal, India",
 } as const

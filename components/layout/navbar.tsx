@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { MenuIcon, MoonIcon, SunIcon, XIcon, GraduationCapIcon } from "lucide-react"
+import { MenuIcon, MoonIcon, SunIcon, XIcon, GraduationCapIcon, ArrowRightIcon } from "lucide-react"
 import { APP_NAME, NAV_LINKS } from "@/lib/constants"
 import { cn } from "@/lib/utils"
 
@@ -18,10 +18,10 @@ export function Navbar() {
   const pathname = usePathname()
   const shouldReduceMotion = useReducedMotion()
 
-  // Track scroll position for navbar shadow effect
+  // Track scroll position for navbar glass effect
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 8)
+      setScrolled(window.scrollY > 32)
     }
     handleScroll()
     window.addEventListener("scroll", handleScroll, { passive: true })
@@ -62,24 +62,39 @@ export function Navbar() {
   }, [isOpen])
 
   const isHomePage = pathname === "/"
+  const isAtTop = !scrolled && isHomePage
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-shadow",
-        scrolled && "shadow-sm"
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        scrolled
+          ? "glass-panel rounded-none border-x-0 border-t-0"
+          : "border-b border-transparent bg-transparent"
       )}
     >
       <nav
-        className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+        className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2" aria-label={`${APP_NAME} home`}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+        <Link href="/" className="flex items-center gap-2.5" aria-label={`${APP_NAME} home`}>
+          <span
+            className={cn(
+              "flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#ffce4f] to-gold text-royal-deep shadow-[0_4px_16px_-2px_rgb(244_180_0/0.5)]",
+              "transition-transform duration-300 hover:scale-105"
+            )}
+          >
             <GraduationCapIcon className="h-5 w-5" aria-hidden="true" />
           </span>
-          <span className="text-lg font-bold tracking-tight">{APP_NAME}</span>
+          <span
+            className={cn(
+              "text-lg font-extrabold tracking-tight transition-colors",
+              isAtTop ? "text-white" : "text-foreground"
+            )}
+          >
+            {APP_NAME}
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -96,16 +111,23 @@ export function Navbar() {
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
-                  "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  isActive
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                  "relative rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors",
+                  isAtTop
+                    ? isActive
+                      ? "text-white"
+                      : "text-white/75 hover:text-white"
+                    : isActive
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {isActive && (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute inset-0 rounded-md bg-muted"
+                    className={cn(
+                      "absolute inset-0 rounded-lg",
+                      isAtTop ? "bg-white/15" : "bg-muted"
+                    )}
                     transition={{
                       type: shouldReduceMotion ? "tween" : "spring",
                       stiffness: 400,
@@ -122,19 +144,40 @@ export function Navbar() {
         </div>
 
         {/* Desktop Actions */}
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2.5 md:flex">
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            className={cn(
+              !isAtTop &&
+                "bg-royal-soft text-royal hover:bg-royal-soft/80 dark:bg-white/10 dark:text-white",
+              isAtTop && "text-white hover:bg-white/15 hover:text-white"
+            )}
           >
-            <SunIcon className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" aria-hidden="true" />
-            <MoonIcon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" aria-hidden="true" />
+            <SunIcon
+              className={cn(
+                "h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0",
+                isAtTop && "text-white"
+              )}
+              aria-hidden="true"
+            />
+            <MoonIcon
+              className={cn(
+                "absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100",
+                isAtTop && "text-white"
+              )}
+              aria-hidden="true"
+            />
           </Button>
           <Link href="/#contact">
-            <Button variant="default" size="sm" className="rounded-full">
+            <Button variant="gold" size="sm" className="group gap-1.5">
               Get Started
+              <ArrowRightIcon
+                className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
             </Button>
           </Link>
         </div>
@@ -146,6 +189,9 @@ export function Navbar() {
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            className={cn(
+              isAtTop && "text-white hover:bg-white/15 hover:text-white"
+            )}
           >
             <SunIcon className="h-4 w-4" aria-hidden="true" />
           </Button>
@@ -156,6 +202,7 @@ export function Navbar() {
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
+            className={cn(isAtTop && "text-white hover:bg-white/15 hover:text-white")}
           >
             {isOpen ? (
               <XIcon className="h-4 w-4" aria-hidden="true" />
@@ -171,7 +218,7 @@ export function Navbar() {
         {isOpen && (
           <motion.div
             id="mobile-navigation"
-            className="border-t md:hidden"
+            className="border-t border-border bg-background/95 backdrop-blur-xl md:hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -191,9 +238,9 @@ export function Navbar() {
                     onClick={() => setIsOpen(false)}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
-                      "block rounded-md px-3 py-2.5 text-sm font-medium transition-colors",
+                      "block rounded-lg px-3.5 py-3 text-sm font-semibold transition-colors",
                       isActive
-                        ? "bg-muted text-foreground"
+                        ? "bg-royal-soft text-royal dark:bg-white/10 dark:text-white"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     )}
                   >
@@ -203,8 +250,9 @@ export function Navbar() {
               })}
               <div className="pt-2">
                 <Link href="/#contact" onClick={() => setIsOpen(false)}>
-                  <Button variant="default" size="lg" className="w-full rounded-full">
+                  <Button variant="gold" size="lg" className="w-full">
                     Get Started
+                    <ArrowRightIcon className="h-4 w-4" aria-hidden="true" />
                   </Button>
                 </Link>
               </div>
